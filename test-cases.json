@@ -1,0 +1,20 @@
+[
+  {
+    "input": "We had a ransomware attack and data is leaked",
+    "expected_category": "risk",
+    "expected_priority": "high",
+    "expected_risk_type": "cyber"
+  },
+  {
+    "input": "My car was damaged yesterday",
+    "expected_category": "claim",
+    "expected_priority": "medium",
+    "expected_risk_type": "property"
+  },
+  {
+    "input": "I have a question about my insurance policy",
+    "expected_category": "general",
+    "expected_priority": "low",
+    "expected_risk_type": "none"
+  }
+]
