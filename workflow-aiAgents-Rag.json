@@ -1,0 +1,865 @@
+{
+  "name": "workflow-aiAgents-Rag",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "workflow-aiAgents-Rag",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1136,
+        336
+      ],
+      "id": "0d63e034-e91f-4727-9cb3-727e3728883c",
+      "name": "Webhook",
+      "webhookId": "93fc89bd-6485-424a-bdd8-a7ec503bb3bc"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $json.output;\nconst parsed = JSON.parse(raw);\n\nreturn [{ json: parsed }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        352
+      ],
+      "id": "247cdaae-21ed-4e25-83c0-a86319f58356",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"message\": \"{{ ($json.body.message || '').toLowerCase().trim() }}\",\n  \"source\": \"{{ $json.body.source }}\",\n  \"client_id\": \"{{ $json.body.client_id }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -944,
+        336
+      ],
+      "id": "742c11de-bba5-477f-b812-b79ebcabcf51",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3bba8ae7-b986-4c63-8492-16b0f26d2884",
+              "leftValue": "={{ $json[\"priority\"] }}",
+              "rightValue": "high",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        32
+      ],
+      "id": "82e08905-4e5a-4f91-9d22-84e7fce00749",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0AT2JKLQPM",
+          "mode": "list",
+          "cachedResultName": "claim"
+        },
+        "text": "High Prio Claim Issue",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        416,
+        -64
+      ],
+      "id": "84553816-8594-45e6-bd83-d71a85718586",
+      "name": "Send a message",
+      "webhookId": "35d763f3-ee48-4d1b-ad43-f8f053bf5bdc",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "e2iCfd4qkZVVoTu5",
+          "name": "Slack OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "rakesh_sathyanarayanan@yahoo.in",
+        "subject": "New Customer Email Notification",
+        "message": "={{ $json[\"message\"] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        128
+      ],
+      "id": "25e397de-a53c-48bd-b3ed-818e1792a587",
+      "name": "Send a message1",
+      "webhookId": "e808d55d-e180-4bdd-82ec-cb65e940ff45",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tEfqAu3gNCWFamJ7",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "rakesh_sathyanarayanan@yahoo.in",
+        "subject": "New Customer Email Notification",
+        "message": "={{ $json[\"message\"] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        -64
+      ],
+      "id": "165c5ff5-6eae-4d17-acf4-b43a8bf49e5f",
+      "name": "Send a message2",
+      "webhookId": "e808d55d-e180-4bdd-82ec-cb65e940ff45",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tEfqAu3gNCWFamJ7",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3bba8ae7-b986-4c63-8492-16b0f26d2884",
+              "leftValue": "={{ $json[\"priority\"] }}",
+              "rightValue": "high",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        1136
+      ],
+      "id": "a5dae92d-9195-4798-95db-af5242c46a72",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "sendTo": "rakesh_sathyanarayanan@yahoo.in",
+        "subject": "New Customer Email Notification",
+        "message": "={{ $json[\"message\"] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        1216
+      ],
+      "id": "ea18bedf-9f8b-4069-b5a1-82842a1692d5",
+      "name": "Send a message4",
+      "webhookId": "e808d55d-e180-4bdd-82ec-cb65e940ff45",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tEfqAu3gNCWFamJ7",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "rakesh_sathyanarayanan@yahoo.in",
+        "subject": "New Customer Email Notification",
+        "message": "={{ $json[\"message\"] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        1040
+      ],
+      "id": "c42a9794-1a28-4527-90a2-feb84f4f9429",
+      "name": "Send a message5",
+      "webhookId": "e808d55d-e180-4bdd-82ec-cb65e940ff45",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tEfqAu3gNCWFamJ7",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0AT5HT8G3F",
+          "mode": "list",
+          "cachedResultName": "risk"
+        },
+        "text": "High Prio Risk Issue",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        512,
+        336
+      ],
+      "id": "fc44bc37-a5d7-46ed-966d-72185e7339bb",
+      "name": "Send a message6",
+      "webhookId": "35d763f3-ee48-4d1b-ad43-f8f053bf5bdc",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "K7PDLpBuNnxNpWMf",
+          "name": "Slack OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "rakesh_sathyanarayanan@yahoo.in",
+        "subject": "=🚨 {{ $json.priority.toUpperCase() }} Priority - {{ $json.risk_type }} Risk Alert",
+        "message": "=Risk Category: {{ $json.category }}\nPriority: {{ $json.priority }}\nRisk Type: {{ $json.risk_type }}\n\nSummary:\n{{ $json.summary }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        272,
+        672
+      ],
+      "id": "abdf5d47-fa72-45a4-a0fa-4609d4f50b50",
+      "name": "Send a message8",
+      "webhookId": "e808d55d-e180-4bdd-82ec-cb65e940ff45",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "tEfqAu3gNCWFamJ7",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0ATCHYH5NY",
+          "mode": "list",
+          "cachedResultName": "general"
+        },
+        "text": "High Prio General Issue",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        416,
+        1040
+      ],
+      "id": "aa4b6ab1-a332-4045-9613-4775e3fa932a",
+      "name": "Send a message9",
+      "webhookId": "35d763f3-ee48-4d1b-ad43-f8f053bf5bdc",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "K7PDLpBuNnxNpWMf",
+          "name": "Slack OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3bba8ae7-b986-4c63-8492-16b0f26d2884",
+              "leftValue": "={{ $json[\"priority\"] }}",
+              "rightValue": "high",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        272,
+        352
+      ],
+      "id": "f2c5928c-6ccd-4ff2-b6aa-38856779b810",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"risk_tag\": \"{{ $json.risk_type?.toLowerCase() }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        528
+      ],
+      "id": "fe1d42a8-c391-4489-9f5d-917e9ae98936",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1X4_AlMCP-oBzs_DfBglOfv83AZ7Xsuv9FQVJeJAVQ4k/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1X4_AlMCP-oBzs_DfBglOfv83AZ7Xsuv9FQVJeJAVQ4k/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "category": "={{ $json[\"category\"] }}",
+            "priority": "={{ $json[\"priority\"] }}",
+            "risk_type": "={{ $json[\"risk_type\"] }}",
+            "summary": "={{ $json[\"summary\"] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "risk_type",
+              "displayName": "risk_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        272,
+        816
+      ],
+      "id": "d2aa76ff-d9ff-4298-a9ca-3412ddb9f170",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "a8cFpKMvn0mcRZt3",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{$json.message}}",
+        "options": {
+          "systemMessage": "You are an insurance triage agent for an enterprise insurance system.\n\nYou classify incoming customer messages and generate structured incident responses.\n\nYou MUST follow all rules strictly. Do not guess outside these rules.\n\n────────────────────────\n🚨 CLASSIFICATION RULES (HIGHEST PRIORITY)\n────────────────────────\n\n1. RISK (cyber / liability / property):\n- Any incident, damage, loss, breach, leak, hacking, or attack MUST be classified as \"risk\"\n- Data breach, leaked customer data, hacking, or security incidents MUST ALWAYS be:\n  category = \"risk\"\n  risk_type = \"cyber\"\n- Incidents are NOT claims unless the user explicitly requests compensation\n\n2. CLAIM:\nOnly classify as \"claim\" if the user explicitly requests:\n- compensation\n- payout\n- reimbursement\n- insurance claim filing\n- refund from insurance\n\n3. GENERAL:\nUse \"general\" only for non-risk, non-incident informational messages.\n\n4. ABSOLUTE RULE:\nIf there is any mention of:\n- data breach\n- leaked data\n- hacking\n- cyber attack\n→ category MUST be \"risk\"\n→ risk_type MUST be \"cyber\"\nNEVER classify these as \"claim\"\n\n────────────────────────\n🧠 USE OF CONTEXT (RAG)\n────────────────────────\n\nYou will receive policy context below.\n\nUse it ONLY to:\n- improve accuracy of summary\n- refine recommended actions\n- align with company policy\n\nDo NOT override classification rules using context.\n\nCONTEXT:\n{{$json.rag_context}}\n\n────────────────────────\n📤 OUTPUT FORMAT (STRICT)\n────────────────────────\n\nReturn ONLY valid JSON.\nNo markdown.\nNo explanation.\nNo extra text.\nNo \"output\" wrapper.\n\n{\n  \"category\": \"claim | risk | general\",\n  \"priority\": \"high | medium | low\",\n  \"risk_type\": \"cyber | liability | property | none\",\n  \"summary\": \"short clear summary of the incident\",\n  \"recommended_action\": \"5–6 strict operational bullet points\"\n}\n\n────────────────────────\n⚙️ PRIORITY RULES\n────────────────────────\n\n- high: data breach, financial loss, legal exposure, active incident\n- medium: service disruption, partial issues, non-critical incidents\n- low: general complaints, minor issues\n\n────────────────────────\n✍️ WRITING RULES\n────────────────────────\n\n- recommended_action must be actionable steps only\n- no explanations\n- no paragraphs\n- max 6 bullet points\n- no incomplete sentences"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -432,
+        352
+      ],
+      "id": "4435ab9e-2075-404b-bfd7-eeb2f2b7c471",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -432,
+        592
+      ],
+      "id": "d5d234aa-01c0-4a93-888b-fcaad5ca4d0f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "042TYUetNJI68uDh",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        688
+      ],
+      "id": "061f7753-3235-45b1-b562-3aff4bd71a01",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "https://drive.google.com/file/d/1YBmKelctt882T6Y8qTz1Wj2WjzPPjbXB/view?usp=drive_link",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -928,
+        528
+      ],
+      "id": "8c5a243d-4cd8-4c1d-9815-bee567ac7ddf",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "P8b1WNJFE2PDn5kO",
+          "name": "Google Drive OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = ($json.message || \"\").toLowerCase();\nconst text = ($json.policy_text || \"\").toLowerCase();\n\nlet context = [];\n\nif (!message) {\n  throw new Error(\"message is missing from input\");\n}\n\n// simple section-based matching\nif (message.includes(\"claim\")) {\n  const match = text.match(/claims policy[\\s\\S]*?(?=cyber policy|complaint policy|$)/i);\n  if (match) context.push(match[0]);\n}\n\nif (message.includes(\"breach\") || message.includes(\"cyber\") || message.includes(\"data\")) {\n  const match = text.match(/cyber incident policy[\\s\\S]*?(?=claims policy|complaint policy|$)/i);\n  if (match) context.push(match[0]);\n}\n\nif (message.includes(\"complaint\")) {\n  const match = text.match(/complaint handling policy[\\s\\S]*$/i);\n  if (match) context.push(match[0]);\n}\n\nif (context.length === 0) {\n  context.push(\"No specific policy matched. Use general insurance reasoning.\");\n}\n\nreturn [{\n  json: {\n    ...$json,\n    rag_context: context.join(\"\\n\\n\")\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -608,
+        352
+      ],
+      "id": "529b3043-3f17-46cf-8781-b5fa82be2222",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -768,
+        352
+      ],
+      "id": "3728711b-4fe0-4875-8357-05c07ccbfeea",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "{{$json[\"category\"]}}",
+                    "rightValue": "claim",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "7696c200-a296-49ea-b315-3cf994893cc6"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "168ad77a-6027-498a-a820-fa3e48b97122",
+                    "leftValue": "={{$json[\"category\"]}}",
+                    "rightValue": "risk",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "06d07365-e73b-4c50-84b5-cbf300172943",
+                    "leftValue": "={{$json[\"category\"]}}",
+                    "rightValue": "general",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        336
+      ],
+      "id": "dc9e5970-ec17-4175-8e23-3a219e5b9ffa",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://webhook.site/d6576801-4034-468b-b676-60c3cb50bc15",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        608,
+        544
+      ],
+      "id": "18657c02-7fab-40e4-a434-3c7510deec0c",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Send a message9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message9": {
+      "main": [
+        [
+          {
+            "node": "Send a message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Send a message6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a message8",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "365aed5c-f58f-4a07-8703-c76855ee3cd9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c4bb7b8ba3d47e048649c19081371dcec5dc850159ec0ec9458304af6f9563e8"
+  },
+  "id": "NeTKVsfqmvkuaxm5",
+  "tags": []
+}
