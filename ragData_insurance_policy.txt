@@ -1,0 +1,39 @@
+Insurance Knowledge Base
+
+Claim:
+A claim is a request made by a client for compensation due to damage, loss, or incident.
+Examples include car accidents, property damage, or personal injury.
+
+Risk:
+A risk refers to a potential future event that may cause damage or financial loss.
+Examples include cyber attacks, system vulnerabilities, or safety risks.
+
+General Inquiry:
+General questions about policies, coverage, or documentation.
+
+Risk Types:
+
+Cyber:
+Incidents related to data breaches, hacking, ransomware, or IT security.
+
+Liability:
+Legal responsibility for damage caused to another person or company.
+
+Property:
+Damage to physical assets such as buildings, equipment, or vehicles.
+
+Priority Rules:
+
+High Priority:
+- Data breach
+- Fire or major damage
+- Legal risk
+- Business disruption
+
+Medium Priority:
+- Partial damage
+- Non-critical system issues
+
+Low Priority:
+- General questions
+- Information requests

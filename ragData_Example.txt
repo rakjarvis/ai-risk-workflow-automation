@@ -1,0 +1,10 @@
+Example Inputs
+
+"My company had a ransomware attack"
+→ risk, high, cyber
+
+"My car was damaged in an accident"
+→ claim, medium, property
+
+"Can you explain my policy coverage?"
+→ general, low, none
